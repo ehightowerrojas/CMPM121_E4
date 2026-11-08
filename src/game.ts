@@ -7,7 +7,12 @@ import {
   Player,
   WIDTH,
 } from "./actors.ts";
-import { ShmupBoss, ShmupPowerUp, ShmupPrefabSprite } from "./prefab.ts";
+import {
+  prefabs,
+  ShmupBoss,
+  ShmupPowerUp,
+  ShmupPrefabSprite,
+} from "./prefab.ts";
 import type { Hud } from "./hud.ts";
 import type { LaunchOptions } from "./main.ts";
 import { AutoPilot, KeyboardPilot, type Pilot } from "./pilots.ts";
@@ -15,7 +20,7 @@ import { Rng } from "./rng.ts";
 import { loadSounds, play } from "./sounds.ts";
 import { makeTextures, TINTS } from "./textures.ts";
 import { Backdrop } from "./backdrop.ts";
-import { type EnemyKind, graceTicks, place, sectors, warden } from "./route.ts";
+import { graceTicks, place, sectors, warden } from "./route.ts";
 
 const TICK_MS = 1000 / 60;
 const START_LIVES = 3;
@@ -33,20 +38,6 @@ const STORY: [number, string][] = [
 const WARP_AT = 9;
 const CREDITS_AT = 11;
 const RETURN_AT = 18;
-
-/**
- * ShmupPrefabSprite arguments for each kind, in constructor order: hit points,
- * score, radius, drop chance, then the prefab's two flags.
- */
-const enemyStats: Record<
-  EnemyKind,
-  [number, number, number, number, boolean, boolean]
-> = {
-  drone: [2, 100, 13, 0.015, true, false],
-  dart: [1, 150, 12, 0.015, false, false],
-  turret: [12, 400, 19, 0.3, true, false],
-  lancer: [4, 250, 15, 0.06, true, false],
-};
 
 /**
  * The whole game. mode is one of "title", "play", "attract" or "cutscene";
@@ -328,7 +319,8 @@ export class GameScene extends Phaser.Scene implements Arena {
   }
 
   summon(_kind: string, x: number, y: number): void {
-    this.enemies.push(this.makeEnemy("drone", x, y, x < WIDTH / 2 ? 1 : -1));
+    const side = x < WIDTH / 2 ? 1 : -1;
+    this.enemies.push(new ShmupPrefabSprite(this, x, y, prefabs.drone, side));
   }
 
   // one tick of gameplay
@@ -415,19 +407,13 @@ export class GameScene extends Phaser.Scene implements Arena {
       for (let i = 0; i < wave.count; i++) {
         const spot = place(wave, i);
         if (t !== wave.at + spot.delay) continue;
-        const dir = i % 2 === 0 ? 1 : -1;
-        this.enemies.push(this.makeEnemy(wave.kind, spot.x, spot.y, dir));
+        const prefab = prefabs[wave.kind];
+        const side = i % 2 === 0 ? 1 : -1;
+        this.enemies.push(
+          new ShmupPrefabSprite(this, spot.x, spot.y, prefab, side),
+        );
       }
     }
-  }
-
-  private makeEnemy(
-    kind: EnemyKind,
-    x: number,
-    y: number,
-    dir: number,
-  ): ShmupPrefabSprite {
-    return new ShmupPrefabSprite(this, x, y, kind, ...enemyStats[kind], x, dir);
   }
 
   private startBoss(): void {
