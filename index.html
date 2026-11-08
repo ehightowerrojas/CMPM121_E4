@@ -6,6 +6,60 @@
     <title>Neon Warden</title>
   </head>
   <body>
+    <template id="stop-template">
+      <li class="stop" data-state="ahead">
+        <span class="stop-dot"></span>
+        <span class="stop-name"></span>
+      </li>
+    </template>
+    <main id="cabinet" class="cabinet" aria-label="Ship status">
+      <section class="readout">
+        <h2>Score</h2>
+        <output id="score">0000000</output>
+      </section>
+      <section class="readout">
+        <h2>Best</h2>
+        <output id="best">0000000</output>
+      </section>
+      <section class="readout">
+        <h2>Hull</h2>
+        <div class="pips" id="lives">
+          <span class="pip lit"></span>
+          <span class="pip lit"></span>
+          <span class="pip lit"></span>
+        </div>
+      </section>
+      <section class="readout">
+        <h2>Cannon</h2>
+        <div class="cells" id="power">
+          <span class="cell lit"></span>
+          <span class="cell"></span>
+          <span class="cell"></span>
+        </div>
+      </section>
+      <p class="badge">Self-play</p>
+      <div class="screen">
+        <div id="game"></div>
+        <div class="banner" id="banner">
+          <strong></strong>
+          <span></span>
+        </div>
+        <p class="caption" id="caption"></p>
+      </div>
+      <aside class="panel panel-right" aria-label="Route">
+        <h2>Route</h2>
+        <ol class="route" id="route"></ol>
+        <section class="boss" id="boss" hidden>
+          <h2>Warden</h2>
+          <div class="boss-meter">
+            <span id="boss-fill"></span>
+          </div>
+        </section>
+        <p class="help">
+          A/D · move · W · jump · J · fire · P · pause
+        </p>
+      </aside>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
