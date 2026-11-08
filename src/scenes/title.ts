@@ -1,10 +1,10 @@
 import Phaser from "phaser";
-import { HEIGHT, WIDTH } from "../../actors.ts";
-import type { Hud } from "../../hud.ts";
-import type { LaunchOptions } from "../../main.ts";
-import { sectors, warden } from "../../route.ts";
-import { Backdrop } from "../backdrop.ts";
-import { fadeIn, fadeTo } from "../fade.ts";
+import { HEIGHT, WIDTH } from "../actors.ts";
+import type { Hud } from "../hud.ts";
+import type { LaunchOptions } from "../main.ts";
+import { sectors, warden } from "../route.ts";
+import { Backdrop } from "./backdrop.ts";
+import { fadeIn, fadeTo } from "./fade.ts";
 
 /** Seconds of idling before the title hands the ship to the autopilot. */
 const IDLE_SECONDS = 8;

@@ -1,11 +1,11 @@
 import Phaser from "phaser";
-import { HEIGHT, WIDTH } from "../actors.ts";
-import { Hud } from "../hud.ts";
-import { BootScene } from "./boot.ts";
-import { CutsceneScene } from "./cutscene.ts";
-import { PlayScene } from "./play.ts";
-import { TitleScene } from "./title.ts";
-import "../style.css";
+import { HEIGHT, WIDTH } from "./actors.ts";
+import { Hud } from "./hud.ts";
+import { BootScene } from "./scenes/boot.ts";
+import { CutsceneScene } from "./scenes/cutscene.ts";
+import { PlayScene } from "./scenes/play.ts";
+import { TitleScene } from "./scenes/title.ts";
+import "./style.css";
 
 /**
  * URL switches for self-play, e.g. ?attract&speed=4&seed=7

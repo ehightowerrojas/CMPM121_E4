@@ -1,10 +1,11 @@
 import Phaser from "phaser";
-import { HEIGHT, WIDTH } from "../../actors.ts";
-import type { Hud } from "../../hud.ts";
-import { play } from "../../sounds.ts";
-import { TINTS } from "../../textures.ts";
-import { Backdrop } from "../backdrop.ts";
-import { fadeIn, fadeTo } from "../fade.ts";
+import { HEIGHT, WIDTH } from "../actors.ts";
+import type { Hud } from "../hud.ts";
+import { play } from "../sounds.ts";
+import { TINTS } from "../textures.ts";
+import type { RunTotals } from "./play.ts";
+import { Backdrop } from "./backdrop.ts";
+import { fadeIn, fadeTo } from "./fade.ts";
 
 /** Lines of the closing story and when (seconds) each appears. */
 const STORY: [number, string][] = [
@@ -18,7 +19,7 @@ const RETURN_AT = 18;
 
 /** What the play scene hands the cutscene when the Warden falls. */
 export interface CutsceneData {
-  run: { score: number; kills: number; hits: number; continues: number };
+  run: RunTotals;
   selfPlay: boolean;
 }
 
