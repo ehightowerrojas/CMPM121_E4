@@ -12,7 +12,7 @@ import {
   WIDTH,
 } from "./actors.ts";
 import type { Hud } from "./hud.ts";
-import type { LaunchOptions } from "./main.ts";
+import type { LaunchOptions } from "./scenes/main.ts";
 import { AutoPilot, KeyboardPilot, type Pilot } from "./pilots.ts";
 import { Rng } from "./rng.ts";
 import { loadSounds, play } from "./sounds.ts";

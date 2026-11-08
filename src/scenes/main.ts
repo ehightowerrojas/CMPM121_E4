@@ -1,8 +1,11 @@
 import Phaser from "phaser";
-import { HEIGHT, WIDTH } from "./actors.ts";
-import { Hud } from "./hud.ts";
-import { GameScene } from "./game.ts";
-import "./style.css";
+import { HEIGHT, WIDTH } from "../actors.ts";
+import { Hud } from "../hud.ts";
+import { BootScene } from "./boot.ts";
+import { CutsceneScene } from "./cutscene.ts";
+import { PlayScene } from "./play.ts";
+import { TitleScene } from "./title.ts";
+import "../style.css";
 
 /**
  * URL switches for self-play, e.g. ?attract&speed=4&seed=7
@@ -25,6 +28,7 @@ const options: LaunchOptions = {
 
 const hud = new Hud();
 
+// Phaser starts the first scene listed; the others wait to be started.
 new Phaser.Game({
   type: Phaser.WEBGL,
   parent: "game",
@@ -32,5 +36,10 @@ new Phaser.Game({
   height: HEIGHT,
   backgroundColor: "#04020c",
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
-  scene: [new GameScene(hud, options)],
+  scene: [
+    new BootScene(),
+    new TitleScene(hud, options),
+    new PlayScene(hud, options),
+    new CutsceneScene(hud),
+  ],
 });
